@@ -36,6 +36,7 @@ jobs:
 
       # 运行生成命令，指定你的配置文件
       - name: Generate TypeScript Codes
+        working-directory: ./proto
         run: buf generate --template buf.gen.ts.yaml
 
       # 发布到 NPM
