@@ -1,27 +1,32 @@
-version: 1
 validation: sovereign
-default_denom: stake
-accounts: 
-- name: alice
-  coins:
-  - 20000token
-  - 200000000stake
-- name: bob
-  coins:
-  - 10000token
-  - 100000000stake
-client:
-  openapi:
-    path: docs/static/openapi.json
+version: 1
+accounts:
+    - name: alice
+      coins:
+        - 20000token
+        - 2000000000000udtc
+    - name: bob
+      coins:
+        - 10000token
+        - 100000000udtc
 faucet:
-  name: bob
-  coins:
-  - 5token
-  - 100000stake
+    name: bob
+    coins:
+        - 5token
+        - 100000udtc
+client:
+    typescript:
+        path: ts-client
+    openapi:
+        path: docs/static/openapi.json
+default_denom: udtc
 validators:
-- name: alice
-  bonded: 100000000stake
-- name: validator1
-  bonded: 200000000stake
-- name: validator2
-  bonded: 100000000stake
+    - name: alice
+      bonded: 100000000udtc
+    - name: validator1
+      bonded: 200000000udtc
+    - name: validator2
+      bonded: 100000000udtc
+build:
+  proto:
+    openapi: false

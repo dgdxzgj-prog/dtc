@@ -46,7 +46,10 @@ import (
 	ibckeeper "github.com/cosmos/ibc-go/v10/modules/core/keeper"
 
 	"dtc/docs"
+	creditmodulekeeper "dtc/x/credit/keeper"
 	dtcmodulekeeper "dtc/x/dtc/keeper"
+	identitymodulekeeper "dtc/x/identity/keeper"
+	taskmodulekeeper "dtc/x/task/keeper"
 )
 
 const (
@@ -99,8 +102,11 @@ type App struct {
 	TransferKeeper      ibctransferkeeper.Keeper
 
 	// simulation manager
-	sm        *module.SimulationManager
-	DtcKeeper dtcmodulekeeper.Keeper
+	sm             *module.SimulationManager
+	DtcKeeper      dtcmodulekeeper.Keeper
+	IdentityKeeper identitymodulekeeper.Keeper
+	TaskKeeper     taskmodulekeeper.Keeper
+	CreditKeeper   creditmodulekeeper.Keeper
 }
 
 func init() {
@@ -181,6 +187,9 @@ func New(
 		&app.CircuitBreakerKeeper,
 		&app.ParamsKeeper,
 		&app.DtcKeeper,
+		&app.IdentityKeeper,
+		&app.TaskKeeper,
+		&app.CreditKeeper,
 	); err != nil {
 		panic(err)
 	}

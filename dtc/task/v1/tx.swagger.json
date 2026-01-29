@@ -1,0 +1,340 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "title": "dtc/task/v1/tx.proto",
+    "version": "version not set"
+  },
+  "tags": [
+    {
+      "name": "Msg"
+    }
+  ],
+  "consumes": [
+    "application/json"
+  ],
+  "produces": [
+    "application/json"
+  ],
+  "paths": {
+    "/dtc.task.v1.Msg/ClaimReward": {
+      "post": {
+        "summary": "ClaimReward defines the ClaimReward RPC.",
+        "operationId": "Msg_ClaimReward",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/dtc.task.v1.MsgClaimRewardResponse"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/google.rpc.Status"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "description": "MsgClaimReward defines the MsgClaimReward message.",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/dtc.task.v1.MsgClaimReward"
+            }
+          }
+        ],
+        "tags": [
+          "Msg"
+        ]
+      }
+    },
+    "/dtc.task.v1.Msg/CreateClaimRecord": {
+      "post": {
+        "summary": "CreateClaimRecord defines the CreateClaimRecord RPC.",
+        "operationId": "Msg_CreateClaimRecord",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/dtc.task.v1.MsgCreateClaimRecordResponse"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/google.rpc.Status"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "description": "MsgCreateClaimRecord defines the MsgCreateClaimRecord message.",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/dtc.task.v1.MsgCreateClaimRecord"
+            }
+          }
+        ],
+        "tags": [
+          "Msg"
+        ]
+      }
+    },
+    "/dtc.task.v1.Msg/DeleteClaimRecord": {
+      "post": {
+        "summary": "DeleteClaimRecord defines the DeleteClaimRecord RPC.",
+        "operationId": "Msg_DeleteClaimRecord",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/dtc.task.v1.MsgDeleteClaimRecordResponse"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/google.rpc.Status"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "description": "MsgDeleteClaimRecord defines the MsgDeleteClaimRecord message.",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/dtc.task.v1.MsgDeleteClaimRecord"
+            }
+          }
+        ],
+        "tags": [
+          "Msg"
+        ]
+      }
+    },
+    "/dtc.task.v1.Msg/UpdateClaimRecord": {
+      "post": {
+        "summary": "UpdateClaimRecord defines the UpdateClaimRecord RPC.",
+        "operationId": "Msg_UpdateClaimRecord",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/dtc.task.v1.MsgUpdateClaimRecordResponse"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/google.rpc.Status"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "description": "MsgUpdateClaimRecord defines the MsgUpdateClaimRecord message.",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/dtc.task.v1.MsgUpdateClaimRecord"
+            }
+          }
+        ],
+        "tags": [
+          "Msg"
+        ]
+      }
+    },
+    "/dtc.task.v1.Msg/UpdateParams": {
+      "post": {
+        "summary": "UpdateParams defines a (governance) operation for updating the module\nparameters. The authority defaults to the x/gov module account.",
+        "operationId": "Msg_UpdateParams",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/dtc.task.v1.MsgUpdateParamsResponse"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/google.rpc.Status"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "description": "MsgUpdateParams is the Msg/UpdateParams request type.",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/dtc.task.v1.MsgUpdateParams"
+            }
+          }
+        ],
+        "tags": [
+          "Msg"
+        ]
+      }
+    }
+  },
+  "definitions": {
+    "dtc.task.v1.MsgClaimReward": {
+      "type": "object",
+      "properties": {
+        "creator": {
+          "type": "string"
+        },
+        "task_id": {
+          "type": "string"
+        },
+        "amount": {
+          "type": "string"
+        },
+        "signature": {
+          "type": "string"
+        },
+        "recipient": {
+          "type": "string",
+          "title": "recipient 是实际接收奖金的用户地址（中台代办领奖时使用）"
+        }
+      },
+      "description": "MsgClaimReward defines the MsgClaimReward message."
+    },
+    "dtc.task.v1.MsgClaimRewardResponse": {
+      "type": "object",
+      "description": "MsgClaimRewardResponse defines the MsgClaimRewardResponse message."
+    },
+    "dtc.task.v1.MsgCreateClaimRecord": {
+      "type": "object",
+      "properties": {
+        "creator": {
+          "type": "string"
+        },
+        "claim_hash": {
+          "type": "string"
+        },
+        "task_id": {
+          "type": "string"
+        },
+        "user_id": {
+          "type": "string"
+        },
+        "signature": {
+          "type": "string"
+        }
+      },
+      "description": "MsgCreateClaimRecord defines the MsgCreateClaimRecord message."
+    },
+    "dtc.task.v1.MsgCreateClaimRecordResponse": {
+      "type": "object",
+      "description": "MsgCreateClaimRecordResponse defines the MsgCreateClaimRecordResponse message."
+    },
+    "dtc.task.v1.MsgDeleteClaimRecord": {
+      "type": "object",
+      "properties": {
+        "creator": {
+          "type": "string"
+        },
+        "claim_hash": {
+          "type": "string"
+        }
+      },
+      "description": "MsgDeleteClaimRecord defines the MsgDeleteClaimRecord message."
+    },
+    "dtc.task.v1.MsgDeleteClaimRecordResponse": {
+      "type": "object",
+      "description": "MsgDeleteClaimRecordResponse defines the MsgDeleteClaimRecordResponse message."
+    },
+    "dtc.task.v1.MsgUpdateClaimRecord": {
+      "type": "object",
+      "properties": {
+        "creator": {
+          "type": "string"
+        },
+        "claim_hash": {
+          "type": "string"
+        },
+        "task_id": {
+          "type": "string"
+        },
+        "user_id": {
+          "type": "string"
+        },
+        "signature": {
+          "type": "string"
+        }
+      },
+      "description": "MsgUpdateClaimRecord defines the MsgUpdateClaimRecord message."
+    },
+    "dtc.task.v1.MsgUpdateClaimRecordResponse": {
+      "type": "object",
+      "description": "MsgUpdateClaimRecordResponse defines the MsgUpdateClaimRecordResponse message."
+    },
+    "dtc.task.v1.MsgUpdateParams": {
+      "type": "object",
+      "properties": {
+        "authority": {
+          "type": "string",
+          "description": "authority is the address that controls the module (defaults to x/gov unless overwritten)."
+        },
+        "params": {
+          "$ref": "#/definitions/dtc.task.v1.Params",
+          "description": "NOTE: All parameters must be supplied."
+        }
+      },
+      "description": "MsgUpdateParams is the Msg/UpdateParams request type."
+    },
+    "dtc.task.v1.MsgUpdateParamsResponse": {
+      "type": "object",
+      "description": "MsgUpdateParamsResponse defines the response structure for executing a\nMsgUpdateParams message."
+    },
+    "dtc.task.v1.Params": {
+      "type": "object",
+      "properties": {
+        "admin_pubkey": {
+          "type": "string",
+          "title": "Admin oracle pubkey (hex-encoded secp256k1 compressed public key)"
+        }
+      },
+      "description": "Params defines the parameters for the module."
+    },
+    "google.protobuf.Any": {
+      "type": "object",
+      "properties": {
+        "@type": {
+          "type": "string"
+        }
+      },
+      "additionalProperties": {}
+    },
+    "google.rpc.Status": {
+      "type": "object",
+      "properties": {
+        "code": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "message": {
+          "type": "string"
+        },
+        "details": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "$ref": "#/definitions/google.protobuf.Any"
+          }
+        }
+      }
+    }
+  }
+}

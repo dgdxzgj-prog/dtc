@@ -1,8 +1,14 @@
 package app
 
 import (
+	_ "dtc/x/credit/module"
+	creditmoduletypes "dtc/x/credit/types"
 	_ "dtc/x/dtc/module"
 	dtcmoduletypes "dtc/x/dtc/types"
+	_ "dtc/x/identity/module"
+	identitymoduletypes "dtc/x/identity/types"
+	_ "dtc/x/task/module"
+	taskmoduletypes "dtc/x/task/types"
 	"time"
 
 	runtimev1alpha1 "cosmossdk.io/api/cosmos/app/runtime/v1alpha1"
@@ -83,7 +89,9 @@ var (
 		{Account: nft.ModuleName},
 		{Account: ibctransfertypes.ModuleName, Permissions: []string{authtypes.Minter, authtypes.Burner}},
 		{Account: icatypes.ModuleName},
-	}
+		{Account: taskmoduletypes.ModuleName, Permissions: []string{authtypes.Minter, authtypes.Burner}},
+		{Account: creditmoduletypes.ModuleName, Permissions: []string{authtypes.Minter, authtypes.Burner}},
+		{Account: creditmoduletypes.GBDPPoolModuleName}}
 
 	// blocked account addresses
 	blockAccAddrs = []string{
@@ -126,6 +134,9 @@ var (
 						ibcexported.ModuleName,
 						// chain modules
 						dtcmoduletypes.ModuleName,
+						identitymoduletypes.ModuleName,
+						taskmoduletypes.ModuleName,
+						creditmoduletypes.ModuleName,
 						// this line is used by starport scaffolding # stargate/app/beginBlockers
 					},
 					EndBlockers: []string{
@@ -135,6 +146,9 @@ var (
 						group.ModuleName,
 						// chain modules
 						dtcmoduletypes.ModuleName,
+						identitymoduletypes.ModuleName,
+						taskmoduletypes.ModuleName,
+						creditmoduletypes.ModuleName,
 						// this line is used by starport scaffolding # stargate/app/endBlockers
 					},
 					// The following is mostly only needed when ModuleName != StoreKey name.
@@ -172,6 +186,9 @@ var (
 						icatypes.ModuleName,
 						// chain modules
 						dtcmoduletypes.ModuleName,
+						identitymoduletypes.ModuleName,
+						taskmoduletypes.ModuleName,
+						creditmoduletypes.ModuleName,
 						// this line is used by starport scaffolding # stargate/app/initGenesis
 					},
 				}),
@@ -271,6 +288,18 @@ var (
 			{
 				Name:   dtcmoduletypes.ModuleName,
 				Config: appconfig.WrapAny(&dtcmoduletypes.Module{}),
+			},
+			{
+				Name:   identitymoduletypes.ModuleName,
+				Config: appconfig.WrapAny(&identitymoduletypes.Module{}),
+			},
+			{
+				Name:   taskmoduletypes.ModuleName,
+				Config: appconfig.WrapAny(&taskmoduletypes.Module{}),
+			},
+			{
+				Name:   creditmoduletypes.ModuleName,
+				Config: appconfig.WrapAny(&creditmoduletypes.Module{}),
 			},
 			// this line is used by starport scaffolding # stargate/app/moduleConfig
 		},

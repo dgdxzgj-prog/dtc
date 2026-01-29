@@ -1,0 +1,281 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "title": "dtc/identity/v1/tx.proto",
+    "version": "version not set"
+  },
+  "tags": [
+    {
+      "name": "Msg"
+    }
+  ],
+  "consumes": [
+    "application/json"
+  ],
+  "produces": [
+    "application/json"
+  ],
+  "paths": {
+    "/dtc.identity.v1.Msg/CreateDidDocument": {
+      "post": {
+        "summary": "CreateDidDocument defines the CreateDidDocument RPC.",
+        "operationId": "Msg_CreateDidDocument",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/dtc.identity.v1.MsgCreateDidDocumentResponse"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/google.rpc.Status"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "description": "MsgCreateDidDocument defines the MsgCreateDidDocument message.",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/dtc.identity.v1.MsgCreateDidDocument"
+            }
+          }
+        ],
+        "tags": [
+          "Msg"
+        ]
+      }
+    },
+    "/dtc.identity.v1.Msg/DeleteDidDocument": {
+      "post": {
+        "summary": "DeleteDidDocument defines the DeleteDidDocument RPC.",
+        "operationId": "Msg_DeleteDidDocument",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/dtc.identity.v1.MsgDeleteDidDocumentResponse"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/google.rpc.Status"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "description": "MsgDeleteDidDocument defines the MsgDeleteDidDocument message.",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/dtc.identity.v1.MsgDeleteDidDocument"
+            }
+          }
+        ],
+        "tags": [
+          "Msg"
+        ]
+      }
+    },
+    "/dtc.identity.v1.Msg/UpdateDidDocument": {
+      "post": {
+        "summary": "UpdateDidDocument defines the UpdateDidDocument RPC.",
+        "operationId": "Msg_UpdateDidDocument",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/dtc.identity.v1.MsgUpdateDidDocumentResponse"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/google.rpc.Status"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "description": "MsgUpdateDidDocument defines the MsgUpdateDidDocument message.",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/dtc.identity.v1.MsgUpdateDidDocument"
+            }
+          }
+        ],
+        "tags": [
+          "Msg"
+        ]
+      }
+    },
+    "/dtc.identity.v1.Msg/UpdateParams": {
+      "post": {
+        "summary": "UpdateParams defines a (governance) operation for updating the module\nparameters. The authority defaults to the x/gov module account.",
+        "operationId": "Msg_UpdateParams",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/dtc.identity.v1.MsgUpdateParamsResponse"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/google.rpc.Status"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "description": "MsgUpdateParams is the Msg/UpdateParams request type.",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/dtc.identity.v1.MsgUpdateParams"
+            }
+          }
+        ],
+        "tags": [
+          "Msg"
+        ]
+      }
+    }
+  },
+  "definitions": {
+    "dtc.identity.v1.MsgCreateDidDocument": {
+      "type": "object",
+      "properties": {
+        "creator": {
+          "type": "string"
+        },
+        "did": {
+          "type": "string"
+        },
+        "controller": {
+          "type": "string"
+        },
+        "faceHash": {
+          "type": "string"
+        },
+        "pubkeys": {
+          "type": "string"
+        },
+        "signature": {
+          "type": "string",
+          "format": "byte"
+        }
+      },
+      "description": "MsgCreateDidDocument defines the MsgCreateDidDocument message."
+    },
+    "dtc.identity.v1.MsgCreateDidDocumentResponse": {
+      "type": "object",
+      "description": "MsgCreateDidDocumentResponse defines the MsgCreateDidDocumentResponse message."
+    },
+    "dtc.identity.v1.MsgDeleteDidDocument": {
+      "type": "object",
+      "properties": {
+        "creator": {
+          "type": "string"
+        },
+        "did": {
+          "type": "string"
+        }
+      },
+      "description": "MsgDeleteDidDocument defines the MsgDeleteDidDocument message."
+    },
+    "dtc.identity.v1.MsgDeleteDidDocumentResponse": {
+      "type": "object",
+      "description": "MsgDeleteDidDocumentResponse defines the MsgDeleteDidDocumentResponse message."
+    },
+    "dtc.identity.v1.MsgUpdateDidDocument": {
+      "type": "object",
+      "properties": {
+        "creator": {
+          "type": "string"
+        },
+        "did": {
+          "type": "string"
+        },
+        "controller": {
+          "type": "string"
+        },
+        "pubkeys": {
+          "type": "string"
+        }
+      },
+      "description": "MsgUpdateDidDocument defines the MsgUpdateDidDocument message."
+    },
+    "dtc.identity.v1.MsgUpdateDidDocumentResponse": {
+      "type": "object",
+      "description": "MsgUpdateDidDocumentResponse defines the MsgUpdateDidDocumentResponse message."
+    },
+    "dtc.identity.v1.MsgUpdateParams": {
+      "type": "object",
+      "properties": {
+        "authority": {
+          "type": "string",
+          "description": "authority is the address that controls the module (defaults to x/gov unless overwritten)."
+        },
+        "params": {
+          "$ref": "#/definitions/dtc.identity.v1.Params",
+          "description": "NOTE: All parameters must be supplied."
+        }
+      },
+      "description": "MsgUpdateParams is the Msg/UpdateParams request type."
+    },
+    "dtc.identity.v1.MsgUpdateParamsResponse": {
+      "type": "object",
+      "description": "MsgUpdateParamsResponse defines the response structure for executing a\nMsgUpdateParams message."
+    },
+    "dtc.identity.v1.Params": {
+      "type": "object",
+      "properties": {
+        "admin_pubkey": {
+          "type": "string",
+          "title": "Admin oracle pubkey (hex-encoded secp256k1 compressed public key)"
+        }
+      },
+      "description": "Params defines the parameters for the module."
+    },
+    "google.protobuf.Any": {
+      "type": "object",
+      "properties": {
+        "@type": {
+          "type": "string"
+        }
+      },
+      "additionalProperties": {}
+    },
+    "google.rpc.Status": {
+      "type": "object",
+      "properties": {
+        "code": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "message": {
+          "type": "string"
+        },
+        "details": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "$ref": "#/definitions/google.protobuf.Any"
+          }
+        }
+      }
+    }
+  }
+}

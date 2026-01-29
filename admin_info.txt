@@ -1,0 +1,10 @@
+==========================================
+Admin 用户信息
+生成时间: Thu Jan 22 06:44:32 AM UTC 2026
+==========================================
+地址 (Address): dtc1cpyfdz7xg69smlfg32vd9a69dfl3u7awlwfxp8
+公钥 (Public Key): {"@type":"/cosmos.crypto.secp256k1.PubKey","key":"A1VdsemJPWuv/3w6/bYt25nPLwc9JRRHAZZmB/Y+Vho4"}
+私钥 (Private Key, Hex): 
+
+余额: 5000000000 udtc
+==========================================

@@ -2,18 +2,34 @@ package app
 
 import (
 	"encoding/json"
+	"errors"
 	"fmt"
 
 	cmtproto "github.com/cometbft/cometbft/proto/tendermint/types"
 
+	"cosmossdk.io/collections"
 	storetypes "cosmossdk.io/store/types"
 	slashingtypes "github.com/cosmos/cosmos-sdk/x/slashing/types"
 	"github.com/cosmos/cosmos-sdk/x/staking"
 	stakingtypes "github.com/cosmos/cosmos-sdk/x/staking/types"
+	distrtypes "github.com/cosmos/cosmos-sdk/x/distribution/types"
 
 	servertypes "github.com/cosmos/cosmos-sdk/server/types"
 	sdk "github.com/cosmos/cosmos-sdk/types"
 )
+
+// ensureDistributionDefaults sets distribution FeePool and Params to defaults if they are missing,
+// so that ExportGenesis does not panic when the distribution state was never initialized.
+func ensureDistributionDefaults(ctx sdk.Context, app *App) {
+	_, err := app.DistrKeeper.FeePool.Get(ctx)
+	if err != nil && errors.Is(err, collections.ErrNotFound) {
+		_ = app.DistrKeeper.FeePool.Set(ctx, distrtypes.InitialFeePool())
+	}
+	_, err = app.DistrKeeper.Params.Get(ctx)
+	if err != nil && errors.Is(err, collections.ErrNotFound) {
+		_ = app.DistrKeeper.Params.Set(ctx, distrtypes.DefaultParams())
+	}
+}
 
 // ExportAppStateAndValidators exports the state of the application for a genesis
 // file.
@@ -28,6 +44,9 @@ func (app *App) ExportAppStateAndValidators(forZeroHeight bool, jailAllowedAddrs
 		height = 0
 		app.prepForZeroHeightGenesis(ctx, jailAllowedAddrs)
 	}
+
+	// Ensure distribution module has default FeePool and Params if missing (avoids panic on export when state was never initialized)
+	ensureDistributionDefaults(ctx, app)
 
 	genState, err := app.ModuleManager.ExportGenesisForModules(ctx, app.appCodec, modulesToExport)
 	if err != nil {

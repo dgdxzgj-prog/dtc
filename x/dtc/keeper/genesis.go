@@ -2,6 +2,9 @@ package keeper
 
 import (
 	"context"
+	"errors"
+
+	"cosmossdk.io/collections"
 
 	"dtc/x/dtc/types"
 )
@@ -13,12 +16,15 @@ func (k Keeper) InitGenesis(ctx context.Context, genState types.GenesisState) er
 
 // ExportGenesis returns the module's exported genesis.
 func (k Keeper) ExportGenesis(ctx context.Context) (*types.GenesisState, error) {
-	var err error
-
 	genesis := types.DefaultGenesis()
-	genesis.Params, err = k.Params.Get(ctx)
-	if err != nil {
+
+	// 如果 Params 不存在，使用默认值（已经在 DefaultGenesis 中设置）
+	params, err := k.Params.Get(ctx)
+	if err != nil && !errors.Is(err, collections.ErrNotFound) {
 		return nil, err
+	}
+	if err == nil {
+		genesis.Params = params
 	}
 
 	return genesis, nil

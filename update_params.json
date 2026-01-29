@@ -1,0 +1,21 @@
+{
+  "body": {
+    "messages": [
+      {
+        "@type": "/dtc.identity.v1.MsgUpdateParams",
+        "authority": "",
+        "params": {
+          "admin_pubkey": ""
+        }
+      }
+    ],
+    "memo": "Update identity module AdminPubkey"
+  },
+  "auth_info": {
+    "signer_infos": [],
+    "fee": {
+      "amount": [{"denom": "udtc", "amount": "200"}],
+      "gas_limit": "200000"
+    }
+  }
+}
