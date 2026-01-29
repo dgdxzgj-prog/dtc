@@ -18,3 +18,4 @@ plugins:
       - ts_proto_opt=esModuleInterop=true
       - ts_proto_opt=forceLong=string
       - ts_proto_opt=outputJsonMethods=true
+      - ts_proto_opt=outputClientImpl=grpc-web
