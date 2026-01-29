@@ -12,45 +12,39 @@
 #
 # The workflow will not run if there is no tag pushed with a "v" prefix and no change pushed to your
 # default branch.
-on: push
+name: Publish Proto SDK to NPM
+on:
+  push:
+    branches:
+      - main # 只有合并到主分支时触发
 
 jobs:
-  might_release:
+  npm-publish:
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout
+      - name: Checkout code
         uses: actions/checkout@v4
-        with:
-          fetch-depth: 0
 
-      - name: Prepare Release Variables
-        id: vars
-        uses: ignite/cli/actions/release/vars@main
+      - name: Setup Buf
+        uses: bufbuild/buf-setup-action@v1
 
-      - name: Issue Release Assets
-        uses: ignite/cli/actions/cli@main
-        if: ${{ steps.vars.outputs.should_release == 'true' }}
+      - name: Setup Node
+        uses: actions/setup-node@v4
         with:
-          args: chain build --release --release.prefix ${{ steps.vars.outputs.tarball_prefix }} -t linux:amd64 -t darwin:amd64 -t darwin:arm64 -y
+          node-version: '20'
+          registry-url: 'https://registry.npmjs.org/'
+
+      # 运行生成命令，指定你的配置文件
+      - name: Generate TypeScript Codes
+        run: buf generate --template buf.gen.ts.yaml
+
+      # 发布到 NPM
+      - name: Publish to NPM
+        run: |
+          git config --global user.email "action@github.com"
+          git config --global user.name "GitHub Action"
+          # 自动提升版本号，避免重复发布失败
+          npm version patch -m "chore: bump version to %s [skip ci]"
+          npm publish --access public
         env:
-          DO_NOT_TRACK: 1
-          GOFLAGS: "-buildvcs=false"
-
-      - name: Delete the "latest" Release
-        uses: dev-drprasad/delete-tag-and-release@v0.2.1
-        if: ${{ steps.vars.outputs.is_release_type_latest == 'true' }}
-        with:
-          tag_name: ${{ steps.vars.outputs.tag_name }}
-          delete_release: true
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-
-      - name: Publish the Release
-        uses: softprops/action-gh-release@v1
-        if: ${{ steps.vars.outputs.should_release == 'true' }}
-        with:
-          tag_name: ${{ steps.vars.outputs.tag_name }}
-          files: release/*
-          prerelease: true
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
