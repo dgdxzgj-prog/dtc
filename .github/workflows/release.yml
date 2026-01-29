@@ -27,6 +27,9 @@ jobs:
 
       - name: Setup Buf
         uses: bufbuild/buf-setup-action@v1
+        with:
+          # 使用 GitHub 自动提供的默认 Token 进行身份验证
+          github_token: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Setup Node
         uses: actions/setup-node@v4
