@@ -1,0 +1,12 @@
+syntax = "proto3";
+package dtc.identity.v1;
+
+option go_package = "dtc/x/identity/types";
+
+// DidDocument defines the DidDocument message.
+message DidDocument {
+  string did = 1;
+  string controller = 2;
+  string faceHash = 3;
+  string pubkeys = 4;
+}

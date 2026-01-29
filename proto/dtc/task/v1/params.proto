@@ -1,0 +1,16 @@
+syntax = "proto3";
+package dtc.task.v1;
+
+import "amino/amino.proto";
+import "gogoproto/gogo.proto";
+
+option go_package = "dtc/x/task/types";
+
+// Params defines the parameters for the module.
+message Params {
+  option (amino.name) = "dtc/x/task/Params";
+  option (gogoproto.equal) = true;
+
+  // Admin oracle pubkey (hex-encoded secp256k1 compressed public key)
+  string admin_pubkey = 1;
+}

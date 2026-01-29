@@ -1,0 +1,17 @@
+syntax = "proto3";
+package dtc.credit.v1;
+
+import "amino/amino.proto";
+import "dtc/credit/v1/params.proto";
+import "gogoproto/gogo.proto";
+
+option go_package = "dtc/x/credit/types";
+
+// GenesisState defines the credit module's genesis state.
+message GenesisState {
+  // params defines all the parameters of the module.
+  Params params = 1 [
+    (gogoproto.nullable) = false,
+    (amino.dont_omitempty) = true
+  ];
+}

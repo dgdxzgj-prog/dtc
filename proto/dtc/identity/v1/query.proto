@@ -1,0 +1,80 @@
+syntax = "proto3";
+
+package dtc.identity.v1;
+
+import "amino/amino.proto";
+import "cosmos/base/query/v1beta1/pagination.proto";
+import "dtc/identity/v1/did_document.proto";
+import "dtc/identity/v1/params.proto";
+import "gogoproto/gogo.proto";
+import "google/api/annotations.proto";
+
+option go_package = "dtc/x/identity/types";
+
+// Query defines the gRPC querier service.
+service Query {
+  // Parameters queries the parameters of the module.
+  rpc Params(QueryParamsRequest) returns (QueryParamsResponse) {
+    option (google.api.http).get = "/dtc/identity/v1/params";
+  }
+
+  // ListDidDocument Queries a list of DidDocument items.
+  rpc GetDidDocument(QueryGetDidDocumentRequest) returns (QueryGetDidDocumentResponse) {
+    option (google.api.http).get = "/dtc/identity/v1/did_document/{did}";
+  }
+
+  // ListDidDocument defines the ListDidDocument RPC.
+  rpc ListDidDocument(QueryAllDidDocumentRequest) returns (QueryAllDidDocumentResponse) {
+    option (google.api.http).get = "/dtc/identity/v1/did_document";
+  }
+
+  // GetDidByAddress Queries a list of GetDidByAddress items.
+  rpc GetDidByAddress(QueryGetDidByAddressRequest) returns (QueryGetDidByAddressResponse) {
+    option (google.api.http).get = "/dtc/identity/v1/get_did_by_address/{address}";
+  }
+}
+
+// QueryParamsRequest is request type for the Query/Params RPC method.
+message QueryParamsRequest {}
+
+// QueryParamsResponse is response type for the Query/Params RPC method.
+message QueryParamsResponse {
+  // params holds all the parameters of this module.
+  Params params = 1 [
+    (gogoproto.nullable) = false,
+    (amino.dont_omitempty) = true
+  ];
+}
+
+// QueryGetDidDocumentRequest defines the QueryGetDidDocumentRequest message.
+message QueryGetDidDocumentRequest {
+  string did = 1;
+}
+
+// QueryGetDidDocumentResponse defines the QueryGetDidDocumentResponse message.
+message QueryGetDidDocumentResponse {
+  DidDocument did_document = 1 [(gogoproto.nullable) = false];
+}
+
+// QueryAllDidDocumentRequest defines the QueryAllDidDocumentRequest message.
+message QueryAllDidDocumentRequest {
+  cosmos.base.query.v1beta1.PageRequest pagination = 1;
+}
+
+// QueryAllDidDocumentResponse defines the QueryAllDidDocumentResponse message.
+message QueryAllDidDocumentResponse {
+  repeated DidDocument did_document = 1 [(gogoproto.nullable) = false];
+  cosmos.base.query.v1beta1.PageResponse pagination = 2;
+}
+
+// QueryGetDidByAddressRequest defines the QueryGetDidByAddressRequest message.
+message QueryGetDidByAddressRequest {
+  string address = 1;
+}
+
+// QueryGetDidByAddressResponse defines the QueryGetDidByAddressResponse message.
+message QueryGetDidByAddressResponse {
+  bool is_registered = 1;
+  string did = 2;
+  string face_hash = 3;
+}

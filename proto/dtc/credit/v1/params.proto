@@ -1,0 +1,18 @@
+syntax = "proto3";
+package dtc.credit.v1;
+
+import "amino/amino.proto";
+import "gogoproto/gogo.proto";
+
+option go_package = "dtc/x/credit/types";
+
+// Params defines the parameters for the module.
+message Params {
+  option (amino.name) = "dtc/x/credit/Params";
+  option (gogoproto.equal) = true;
+
+  // gbdp_rate 表示百分比，默认 100 代表 1%
+  uint64 gbdp_rate = 1;
+  // phi_macro 默认值为 "1.0"
+  string phi_macro = 2;
+}

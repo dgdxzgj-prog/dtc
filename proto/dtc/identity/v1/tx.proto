@@ -1,0 +1,86 @@
+syntax = "proto3";
+
+package dtc.identity.v1;
+
+import "amino/amino.proto";
+import "cosmos/msg/v1/msg.proto";
+import "cosmos_proto/cosmos.proto";
+import "dtc/identity/v1/params.proto";
+import "gogoproto/gogo.proto";
+
+option go_package = "dtc/x/identity/types";
+
+// Msg defines the Msg service.
+service Msg {
+  option (cosmos.msg.v1.service) = true;
+
+  // UpdateParams defines a (governance) operation for updating the module
+  // parameters. The authority defaults to the x/gov module account.
+  rpc UpdateParams(MsgUpdateParams) returns (MsgUpdateParamsResponse);
+
+  // CreateDidDocument defines the CreateDidDocument RPC.
+  rpc CreateDidDocument(MsgCreateDidDocument) returns (MsgCreateDidDocumentResponse);
+
+  // UpdateDidDocument defines the UpdateDidDocument RPC.
+  rpc UpdateDidDocument(MsgUpdateDidDocument) returns (MsgUpdateDidDocumentResponse);
+
+  // DeleteDidDocument defines the DeleteDidDocument RPC.
+  rpc DeleteDidDocument(MsgDeleteDidDocument) returns (MsgDeleteDidDocumentResponse);
+}
+
+// MsgUpdateParams is the Msg/UpdateParams request type.
+message MsgUpdateParams {
+  option (cosmos.msg.v1.signer) = "authority";
+  option (amino.name) = "dtc/x/identity/MsgUpdateParams";
+
+  // authority is the address that controls the module (defaults to x/gov unless overwritten).
+  string authority = 1 [(cosmos_proto.scalar) = "cosmos.AddressString"];
+
+  // params defines the module parameters to update.
+
+  // NOTE: All parameters must be supplied.
+  Params params = 2 [
+    (gogoproto.nullable) = false,
+    (amino.dont_omitempty) = true
+  ];
+}
+
+// MsgUpdateParamsResponse defines the response structure for executing a
+// MsgUpdateParams message.
+message MsgUpdateParamsResponse {}
+
+// MsgCreateDidDocument defines the MsgCreateDidDocument message.
+message MsgCreateDidDocument {
+  option (cosmos.msg.v1.signer) = "creator";
+  string creator = 1 [(cosmos_proto.scalar) = "cosmos.AddressString"];
+  string did = 2;
+  string controller = 3;
+  string faceHash = 4;
+  string pubkeys = 5;
+  bytes signature = 6;
+}
+
+// MsgCreateDidDocumentResponse defines the MsgCreateDidDocumentResponse message.
+message MsgCreateDidDocumentResponse {}
+
+// MsgUpdateDidDocument defines the MsgUpdateDidDocument message.
+message MsgUpdateDidDocument {
+  option (cosmos.msg.v1.signer) = "creator";
+  string creator = 1 [(cosmos_proto.scalar) = "cosmos.AddressString"];
+  string did = 2;
+  string controller = 3;
+  string pubkeys = 4;
+}
+
+// MsgUpdateDidDocumentResponse defines the MsgUpdateDidDocumentResponse message.
+message MsgUpdateDidDocumentResponse {}
+
+// MsgDeleteDidDocument defines the MsgDeleteDidDocument message.
+message MsgDeleteDidDocument {
+  option (cosmos.msg.v1.signer) = "creator";
+  string creator = 1 [(cosmos_proto.scalar) = "cosmos.AddressString"];
+  string did = 2;
+}
+
+// MsgDeleteDidDocumentResponse defines the MsgDeleteDidDocumentResponse message.
+message MsgDeleteDidDocumentResponse {}

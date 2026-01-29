@@ -1,0 +1,13 @@
+syntax = "proto3";
+package dtc.task.v1;
+
+option go_package = "dtc/x/task/types";
+
+// ClaimRecord defines the ClaimRecord message.
+message ClaimRecord {
+  string claim_hash = 1;
+  string task_id = 2;
+  string user_id = 3;
+  string signature = 4;
+  string creator = 5;
+}

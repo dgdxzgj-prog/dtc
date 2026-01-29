@@ -1,0 +1,21 @@
+{
+  "name": "@zhengguangjun/chain-types",
+  "version": "1.0.0",
+  "description": "Blockchain Protobuf Types for Full-stack Development",
+  "main": "generated/index.js",
+  "types": "generated/index.d.ts",
+  "files": [
+    "generated"
+  ],
+  "publishConfig": {
+    "access": "public"
+  },
+  "scripts": {
+    "build": "buf generate --template buf.gen.ts.yaml",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": ["blockchain", "protobuf", "types"],
+  "author": "",
+  "license": "ISC",
+  "type": "module"
+}

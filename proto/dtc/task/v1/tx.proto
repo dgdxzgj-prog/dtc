@@ -1,0 +1,103 @@
+syntax = "proto3";
+
+package dtc.task.v1;
+
+import "amino/amino.proto";
+import "cosmos/msg/v1/msg.proto";
+import "cosmos_proto/cosmos.proto";
+import "dtc/task/v1/params.proto";
+import "gogoproto/gogo.proto";
+
+option go_package = "dtc/x/task/types";
+
+// Msg defines the Msg service.
+service Msg {
+  option (cosmos.msg.v1.service) = true;
+
+  // UpdateParams defines a (governance) operation for updating the module
+  // parameters. The authority defaults to the x/gov module account.
+  rpc UpdateParams(MsgUpdateParams) returns (MsgUpdateParamsResponse);
+
+  // CreateClaimRecord defines the CreateClaimRecord RPC.
+  rpc CreateClaimRecord(MsgCreateClaimRecord) returns (MsgCreateClaimRecordResponse);
+
+  // UpdateClaimRecord defines the UpdateClaimRecord RPC.
+  rpc UpdateClaimRecord(MsgUpdateClaimRecord) returns (MsgUpdateClaimRecordResponse);
+
+  // DeleteClaimRecord defines the DeleteClaimRecord RPC.
+  rpc DeleteClaimRecord(MsgDeleteClaimRecord) returns (MsgDeleteClaimRecordResponse);
+
+  // ClaimReward defines the ClaimReward RPC.
+  rpc ClaimReward(MsgClaimReward) returns (MsgClaimRewardResponse);
+}
+
+// MsgUpdateParams is the Msg/UpdateParams request type.
+message MsgUpdateParams {
+  option (cosmos.msg.v1.signer) = "authority";
+  option (amino.name) = "dtc/x/task/MsgUpdateParams";
+
+  // authority is the address that controls the module (defaults to x/gov unless overwritten).
+  string authority = 1 [(cosmos_proto.scalar) = "cosmos.AddressString"];
+
+  // params defines the module parameters to update.
+
+  // NOTE: All parameters must be supplied.
+  Params params = 2 [
+    (gogoproto.nullable) = false,
+    (amino.dont_omitempty) = true
+  ];
+}
+
+// MsgUpdateParamsResponse defines the response structure for executing a
+// MsgUpdateParams message.
+message MsgUpdateParamsResponse {}
+
+// MsgCreateClaimRecord defines the MsgCreateClaimRecord message.
+message MsgCreateClaimRecord {
+  option (cosmos.msg.v1.signer) = "creator";
+  string creator = 1 [(cosmos_proto.scalar) = "cosmos.AddressString"];
+  string claim_hash = 2;
+  string task_id = 3;
+  string user_id = 4;
+  string signature = 5;
+}
+
+// MsgCreateClaimRecordResponse defines the MsgCreateClaimRecordResponse message.
+message MsgCreateClaimRecordResponse {}
+
+// MsgUpdateClaimRecord defines the MsgUpdateClaimRecord message.
+message MsgUpdateClaimRecord {
+  option (cosmos.msg.v1.signer) = "creator";
+  string creator = 1 [(cosmos_proto.scalar) = "cosmos.AddressString"];
+  string claim_hash = 2;
+  string task_id = 3;
+  string user_id = 4;
+  string signature = 5;
+}
+
+// MsgUpdateClaimRecordResponse defines the MsgUpdateClaimRecordResponse message.
+message MsgUpdateClaimRecordResponse {}
+
+// MsgDeleteClaimRecord defines the MsgDeleteClaimRecord message.
+message MsgDeleteClaimRecord {
+  option (cosmos.msg.v1.signer) = "creator";
+  string creator = 1 [(cosmos_proto.scalar) = "cosmos.AddressString"];
+  string claim_hash = 2;
+}
+
+// MsgDeleteClaimRecordResponse defines the MsgDeleteClaimRecordResponse message.
+message MsgDeleteClaimRecordResponse {}
+
+// MsgClaimReward defines the MsgClaimReward message.
+message MsgClaimReward {
+  option (cosmos.msg.v1.signer) = "creator";
+  string creator = 1 [(cosmos_proto.scalar) = "cosmos.AddressString"];
+  string task_id = 2;
+  string amount = 3;
+  string signature = 4;
+  // recipient 是实际接收奖金的用户地址（中台代办领奖时使用）
+  string recipient = 5 [(cosmos_proto.scalar) = "cosmos.AddressString"];
+}
+
+// MsgClaimRewardResponse defines the MsgClaimRewardResponse message.
+message MsgClaimRewardResponse {}
