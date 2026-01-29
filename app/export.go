@@ -18,7 +18,7 @@ import (
 	sdk "github.com/cosmos/cosmos-sdk/types"
 )
 
-// ensureDistributionDefaults sets distribution FeePool and Params to defaults if they are missing,
+// ensureDistributionDefaults sets distribution FeePool, Params, and PreviousProposer to defaults if they are missing,
 // so that ExportGenesis does not panic when the distribution state was never initialized.
 func ensureDistributionDefaults(ctx sdk.Context, app *App) {
 	_, err := app.DistrKeeper.FeePool.Get(ctx)
@@ -28,6 +28,11 @@ func ensureDistributionDefaults(ctx sdk.Context, app *App) {
 	_, err = app.DistrKeeper.Params.Get(ctx)
 	if err != nil && errors.Is(err, collections.ErrNotFound) {
 		_ = app.DistrKeeper.Params.Set(ctx, distrtypes.DefaultParams())
+	}
+	_, err = app.DistrKeeper.GetPreviousProposerConsAddr(ctx)
+	if err != nil {
+		// "previous proposer not set" or any error: set empty so ExportGenesis can run
+		_ = app.DistrKeeper.SetPreviousProposerConsAddr(ctx, sdk.ConsAddress(nil))
 	}
 }
 
