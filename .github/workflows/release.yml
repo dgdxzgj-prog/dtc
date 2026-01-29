@@ -44,6 +44,7 @@ jobs:
 
       # 发布到 NPM
       - name: Publish to NPM
+        working-directory: ./proto
         run: |
           git config --global user.email "action@github.com"
           git config --global user.name "GitHub Action"
